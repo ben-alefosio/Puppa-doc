@@ -3,10 +3,6 @@ const express = require('express')
 const router = express.Router()
 module.exports = router
 
-router.use(express.urlencoded({
-  extended: false
-}))
-
 const path = require('path')
 const fsPromises = require('fs').promises
 
