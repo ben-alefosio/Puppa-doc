@@ -5,7 +5,7 @@
 ## Learning objectives
 
 1. Learn Express router
-1. Practise using callback functions
+1. Practise writing asynchronous code using promises
 1. Practise server side rendering
 
 
