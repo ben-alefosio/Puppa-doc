@@ -62,11 +62,11 @@ router.post('/puppies/:id/edit', (req, res) => {
       }
 
       const puppyId = Number(req.body.id)
-      const findMethod = editedPuppies.puppies.find(obj => obj.id === puppyId)
+      const foundPuppy = editedPuppies.puppies.find(obj => obj.id === puppyId)
 
-      findMethod.name = req.body.name
-      findMethod.owner = req.body.owner
-      findMethod.breed = req.body.breed
+      foundPuppy.name = req.body.name
+      foundPuppy.owner = req.body.owner
+      foundPuppy.breed = req.body.breed
 
       const stringifiedPuppies = JSON.stringify(editedPuppies, null, 2)
 
@@ -74,12 +74,10 @@ router.post('/puppies/:id/edit', (req, res) => {
     })
     .then(() => {
       console.log('Edit success!')
+      res.redirect(`/puppies/${req.body.id}`)
       return null
     })
     .catch((err) => {
       console.log(err.message)
     })
-
-  res.redirect(`/puppies/${req.body.id}`)
-  return null
 })

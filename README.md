@@ -20,6 +20,7 @@
 1. The order of routes is important. The first one that matches will be used. So if you have a `/:id` route before an `/edit` route, a request to `/edit` will choose the `/:id` route and the value of `req.params.id` will be `"edit"`.
 2. There can only be one server response (e.g. `res.send()` or `res.render()`) per request. If you have multiple potential responses (like a success and an error response) make sure to write your logic so that the route responds appropriately.
 3. Make sure to `JSON.parse` and `JSON.stringify` when reading/writing JSON data.
+4. Don't forget to catch errors when working with promises, using catch blocks.
 
 
 ## Let's see some puppies!

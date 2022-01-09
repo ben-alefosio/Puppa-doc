@@ -10,7 +10,7 @@
     {
       "id": 2,
       "name": "Coco",
-      "owner": "Caro",
+      "owner": "Louise",
       "image": "/images/puppy2.jpg",
       "breed": "Labrador"
     },
@@ -38,7 +38,7 @@
     {
       "id": 6,
       "name": "Bella",
-      "owner": "Brianna",
+      "owner": "Briana",
       "image": "/images/puppy6.jpg",
       "breed": "Labrador"
     },
