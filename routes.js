@@ -61,25 +61,25 @@ router.post('/puppies/:id/edit', (req, res) => {
         ...parsedPuppies
       }
 
-      editedPuppies.puppies.find(obj => obj.image === req.body.image).name = req.body.name
-      editedPuppies.puppies.find(obj => obj.image === req.body.image).owner = req.body.owner
-      editedPuppies.puppies.find(obj => obj.image === req.body.image).breed = req.body.breed
+      const puppyId = Number(req.body.id)
+      const findMethod = editedPuppies.puppies.find(obj => obj.id === puppyId)
+
+      findMethod.name = req.body.name
+      findMethod.owner = req.body.owner
+      findMethod.breed = req.body.breed
 
       const stringifiedPuppies = JSON.stringify(editedPuppies, null, 2)
 
-      fsPromises.writeFile(filepath, stringifiedPuppies, 'utf8')
-        .then(() => {
-          console.log('Edit success!')
-          return null
-        })
-        .catch((err) => {
-          console.log(err.message)
-        })
-
-      res.redirect(`/puppies/${req.body.id}`)
+      return fsPromises.writeFile(filepath, stringifiedPuppies, 'utf8')
+    })
+    .then(() => {
+      console.log('Edit success!')
       return null
     })
     .catch((err) => {
       console.log(err.message)
     })
+
+  res.redirect(`/puppies/${req.body.id}`)
+  return null
 })

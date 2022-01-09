@@ -20,7 +20,6 @@
 1. The order of routes is important. The first one that matches will be used. So if you have a `/:id` route before an `/edit` route, a request to `/edit` will choose the `/:id` route and the value of `req.params.id` will be `"edit"`.
 2. There can only be one server response (e.g. `res.send()` or `res.render()`) per request. If you have multiple potential responses (like a success and an error response) make sure to write your logic so that the route responds appropriately.
 3. Make sure to `JSON.parse` and `JSON.stringify` when reading/writing JSON data.
-4. Don't forget the error response format of callback functions (if in doubt check the [node `fs` documentation](https://nodejs.org/api/fs.html))
 
 
 ## Let's see some puppies!
@@ -36,7 +35,7 @@ Now that we have a root route, let's use it to see some puppies.
 
 - In our server file, change the GET `/` route function. We will use this route to:
 
-  1. read the puppies from our `data.json` file using `fs.readFile` (don't forget to parse the data into a JavaScript object)
+  1. read the puppies from our `data.json` file using `fsPromises.readFile` (don't forget to parse the data into a JavaScript object)
   1. render the puppies using the `home` view (that has already been created) and your puppies data
 
 *If your page renders, but there are no puppies:*
@@ -80,7 +79,5 @@ If all goes well, you should be able to update the puppy information. If that is
 
 If you've reached this point, congratulations! As a stretch, you might like to do the following:
 
-1. Refactor the `fs.readFile` and `fs.writeFile` calls into a separate file (separation of concerns).
-  - As these are async calls to begin with, you will need to write functions around them which accept and call callback functions as a parameter (don't forget the error response format when calling those callbacks)
 1. Write some tests using `jest` and `supertest` (don't forget to `npm install` these).
 1. Add a new view and route that includes a form which lets the user add a new puppy.
