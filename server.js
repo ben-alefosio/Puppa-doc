@@ -12,6 +12,13 @@ server.engine('hbs', hbs({ extname: 'hbs' }))
 server.set('view engine', 'hbs')
 
 // Your routes/router(s) should go here
+server.get('/', (req, res) => {
+  const viewData = {
+    title: 'Pupparazzo'
 
+  }
+  const template = 'home'
+  res.render(template, viewData)
+})
 
 module.exports = server
