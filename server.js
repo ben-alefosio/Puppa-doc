@@ -15,3 +15,8 @@ server.set('view engine', 'hbs')
 
 
 module.exports = server
+
+
+server.get('/', (req, res) => {
+    res.send('pupparazzi')
+  })
