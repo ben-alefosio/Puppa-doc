@@ -12,7 +12,6 @@ server.engine('hbs', hbs({ extname: 'hbs' }))
 server.set('view engine', 'hbs')
 
 // Your routes/router(s) should go here
-const routes = require('./routes')
-server.use('/', routes)
+
 
 module.exports = server
