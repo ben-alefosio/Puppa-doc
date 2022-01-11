@@ -19,5 +19,18 @@ server.get('/', (req, res) => {
     res.send('Pupparazzi')
   })
 
+  // write fs.promise readfile function 
+  const fs = require('fs').promises
+  
+  const p = fs.readFile('data.json', 'utf-8')
+  .then(() => {
+    console.log('puppy file has been saved');
+  })
+  .catch(err => {
+    console.error('ops something happend ', err);
+  })
+
+  console.log(p)
+
 
 module.exports = server
