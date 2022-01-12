@@ -37,28 +37,45 @@ server.get('/', (req, res) => {
 })
 
 server.get('/puppies/:id', (req, res) => {
-  const pupObj = data.puppies.find(pup => JSON.stringify(pup.id) === req.params.id)
-  const viewData = {
-    id: pupObj.id,
-    image: pupObj.image,
-    breed: pupObj.breed,
-    name: pupObj.name,
-    owner: pupObj.owner
-  }
-  res.render('details', viewData)
+  fs.readFile('data.json', 'utf-8')
+    .then(rawJSON => {
+      return JSON.parse(rawJSON)
+    })
+    .then(data => {
+      const pupObj = data.puppies.find(pup => JSON.stringify(pup.id) === req.params.id)
+      const viewData = {
+      id: pupObj.id,
+      image: pupObj.image,
+      breed: pupObj.breed,
+      name: pupObj.name,
+      owner: pupObj.owner
+      }
+      return res.render('details', viewData)
+    })
+    .catch(error => {
+      console.error(error.message)
+    })
 })
 
 server.get('/puppies/:id/edit', (req, res) => {
-  const pupObj = data.puppies.find(pup => JSON.stringify(pup.id) === req.params.id)
-  const viewData = {
-    id: pupObj.id,
-    image: pupObj.image,
-    breed: pupObj.breed,
-    name: pupObj.name,
-    owner: pupObj.owner
-  }
-  console.log('hi')
-  res.render('edit', viewData)
+  fs.readFile('data.json', 'utf-8')
+    .then(rawJSON => {
+      return JSON.parse(rawJSON)
+    })
+    .then(data => {
+      const pupObj = data.puppies.find(pup => JSON.stringify(pup.id) === req.params.id)
+      const viewData = {
+      id: pupObj.id,
+      image: pupObj.image,
+      breed: pupObj.breed,
+      name: pupObj.name,
+      owner: pupObj.owner
+      }
+      return res.render('edit', viewData)
+    })
+    .catch(error => {
+      console.error(error.message)
+    })
 })
 
 server.post('/puppies/:id/edit', (req, res) => {
@@ -72,18 +89,13 @@ server.post('/puppies/:id/edit', (req, res) => {
     name: req.body.name,
     owner: req.body.owner
   }
-  const newArr = pupsArr.push(newObj)
+  pupsArr.push(newObj)
   const newData = { puppies: pupsArr }
   fs.writeFile('data.json', JSON.stringify(newData), 'utf-8')
     .then(() => { return res.redirect(`/puppies/${index}`) })
     .catch(error => {
       console.error(error.message)
     })
-  // read file
-  // filter file
-  // get changed data
-  // define new array without the param data, push new param data to array, write data file object with new array
-  res.redirect(`/puppies/${index}`)
 })
 
 module.exports = server
