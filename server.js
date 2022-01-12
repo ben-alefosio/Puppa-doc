@@ -23,9 +23,13 @@ const dogData = require('./data.json')
 
 
 server.get('/', (req, res) => {
+
     const viewData = {
         puppies: dogData.puppies
     }
+    //sort items
+    dogData.puppies.sort((a, b) => (a.id > b.id ? 1 : -1))
+
     res.render('home', viewData)
 })
 
@@ -45,7 +49,6 @@ server.get('/puppies/:id/edit', (req, res) => {
 })
 
 
-
 server.post('/puppies/:id/edit', (req, res) => {
     const paramsid = Number(req.params.id)
 
@@ -55,26 +58,18 @@ server.post('/puppies/:id/edit', (req, res) => {
     dogData.puppies = dogData.puppies.filter(obj => obj.id !== paramsid)
 
     const list = dogData.puppies
-
     dogData.puppies = [
         ...list,
         { ...newdata }
     ]
 
-    console.log('Dogdata from global', dogData)
-
-
     const filePath = path.join(__dirname, '/data.json')
-    // const cat = ['cat']
+
 
     fs.writeFile(filePath, JSON.stringify(dogData, null, 2), 'utf8')
-        .then(() => {
-            console.log('doonnnneeee')
+        .catch((err) => {
+            console.error(err);
         })
-
-
-
-
 
     res.redirect(`/puppies/${paramsid}`)
 })
