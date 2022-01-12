@@ -2,11 +2,11 @@ const express = require('express')
 const hbs = require('express-handlebars')
 const path = require('path')
 
-const fs = require('fs')
+const fs = require('fs').promises
 const server = express()
 
-// Import data
-const data = require('./data.json')
+// Import data from data.json
+// const data = require('./data.json')
 
 // Server configuration
 // settind up static folder (for HTML, css, imagine etc)
@@ -19,49 +19,41 @@ server.engine('hbs', hbs({ extname: 'hbs' }))
 server.set('view engine', 'hbs')
 
 
-// Your routes/router(s) should go here
+// test //
+// const filepath = path.join(__dirname, 'data.json')
 
-// << Routes>> 
 // server.get('/', (req, res) => {
-//   res.send('Hello this is TOP PAGE!')
+//   fs.readFile(filepath, 'utf8', (err, puppyData) => {
+//     const data = JSON.parse(puppyData)
+//     console.log(data)
+
+//     const viewData = {
+//       puppies: data.puppies
+//     }
+
+//     const template = 'home'
+//     res.render(template, viewData)
+//   })
 // })
 
 
-
-// test //
-const filepath = path.join(__dirname, 'data.json')
-
+// Your routes/router(s) should go here
+// << Routes>> 
 server.get('/', (req, res) => {
-  fs.readFile(filepath, 'utf8', (err, puppyData) => {
-    const puppy = JSON.parse(puppyData)
-    console.log(puppy.name)
-  })
-
-
-  const viewData = {
-    puppies: data.puppies,
-    id: data.puppies[0].id,
-    image: data.puppies[0].image,
-    name: data.puppies[0].name
-    // id: puppy.puppies[0].id,
-  }
-  const template = 'home'
-  res.render(template, viewData)
-
-
+  fs.readFile('./data.json', 'utf-8')
+    .then(function (result) {
+      const parsedPups = JSON.parse(result)
+      const template = 'home'
+      const viewData = {
+        puppies: parsedPups.puppies
+      }
+      res.render(template, viewData)
+      return null
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
 })
-
-// const filepath = path.join(__dirname, 'data.json')
-// fs.readFile(filepath, 'utf8')
-//   .then((data) => {
-//     const pupData = JSON.parse(data)
-//     console.log(pupData)
-//     return pupData
-//   })
-//   .catch((err) => {
-//     console.error(err)
-//   })
-
 
 
 // Export

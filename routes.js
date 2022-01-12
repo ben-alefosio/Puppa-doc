@@ -1,19 +1,26 @@
-//store all of our routes.
 const express = require('express')
-const server = express()
-module.exports = server
 
+const router = express.Router()
+
+const data = require('./data.json')
+
+module.exports = router
+
+
+console.log('test')
 
 // << Routes for pupiies>> 
-server.get('/:id', (req, res) => {
+router.get('/puppies/:id', (req, res) => {
   const id = Number(req.params.id)
-  const puppies = puppies.find(item => item.id === id)
+  const puppies = data.find(item => item.id === id)
 
   const viewData = {
-    titile: 'puppies'
+    image: 'caaaaat'
+    // name: data.puppies[0].name,
+    // breed: data.puppies[0].breed,
+    // owner: data.puppies[0].breed
   }
-  const template = 'detail'
+  const template = 'details'
   res.render(template, viewData)
-
 })
 
