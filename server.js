@@ -98,4 +98,44 @@ server.post('/puppies/:id/edit', (req, res) => {
     })
 })
 
+server.get('/puppies/add', (req, res) => {
+  fs.readFile('data.json', 'utf-8')
+    .then(rawJSON => {
+      return JSON.parse(rawJSON)
+    })
+    .then(data => {
+      const pupObj = data.puppies.find(pup => JSON.stringify(pup.id) === req.params.id)
+      const viewData = {
+      id: pupObj.id,
+      image: pupObj.image,
+      breed: pupObj.breed,
+      name: pupObj.name,
+      owner: pupObj.owner
+      }
+      return res.render('edit', viewData)
+    })
+    .catch(error => {
+      console.error(error.message)
+    })
+})
+
+server.post('/puppies/add', (req, res) => {
+  const pupsArr = data.puppies
+  const maxId = data.puppies.map(id => id = data.puppies.id)
+  const newObj = {
+    id: parseInt(index),
+    image: req.body.image,
+    breed: req.body.breed,
+    name: req.body.name,
+    owner: req.body.owner
+  }
+  pupsArr.push(newObj)
+  const newData = { puppies: pupsArr }
+  fs.writeFile('data.json', JSON.stringify(newData), 'utf-8')
+    .then(() => { return res.redirect(`/puppies/${index}`) })
+    .catch(error => {
+      console.error(error.message)
+    })
+})
+
 module.exports = server

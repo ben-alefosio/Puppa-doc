@@ -1,0 +1,26 @@
+<h1>Add a puppy!!</h1>
+<form class="form" action="/puppies/add" method="post">
+  <img class="img-circle" src="{{image}}" alt="{{name}}">
+  <label for="name" class="form-item">
+    Name:
+    <input type="text" name="name" value="{{name}}">
+  </label>
+  
+  <label for="breed" class="form-item">
+    Breed:
+    <input type="text" name="breed" value="{{breed}}">
+  </label>
+  
+  <label for="owner" class="form-item">
+    Owner:
+    <input type="text" name="owner" value="{{owner}}">
+  </label>
+  
+  <label for="image" class="form-item">
+    Image link:
+    <input type="text" name="owner" value="{{image}}">
+  </label>
+  <input type="hidden" name="id" value="{{id}}">
+  
+  <input type="submit" name="" value="Submit">
+</form>
