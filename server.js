@@ -1,5 +1,6 @@
 const express = require('express')
 const hbs = require('express-handlebars')
+const routes = require('./routes')
 
 const server = express()
 
@@ -13,5 +14,6 @@ server.set('view engine', 'hbs')
 
 // Your routes/router(s) should go here
 
+server.use(routes)
 
 module.exports = server
