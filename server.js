@@ -2,7 +2,6 @@
 const express = require('express')
 const hbs = require('express-handlebars')
 const fs = require('fs').promises
-// const data = require('./data.json')
 
 const server = express()
 
@@ -18,31 +17,25 @@ server.set('view engine', 'hbs')
 // Your routes/router(s) should go here
 server.get('/', (req, res) => {
 
+      // write fs.promise readfile function 
     fs.readFile('data.json', 'utf-8')
-
-    .then((puppies) => { 
-      JSON.parse(puppies)
-      console.log(puppies);
+    .then((puppiesObject) => { 
+      const parsedPuppies = JSON.parse(puppiesObject)
+      console.log(puppiesObject);
+      const viewData = {
+        puppies : parsedPuppies.puppies
+    }
+    console.log(viewData)
+    res.render('home', viewData)
     })
     .catch(err => {
       console.error('ops something happend ', err);
     })
 
-    // res.render('home', viewData)
+
+    
   })
 
-  // write fs.promise readfile function 
- 
-  
-
-
-// const p = fs.readFile(puppyData, 'utf-8)
-
-//   const p = JSON.parse(fs.readFile('data.json', 'utf-8'))
-
-
-  //console.log(JSON.parse(p))
-  console.log('Hi')
 
 
 
