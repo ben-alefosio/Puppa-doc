@@ -19,6 +19,9 @@
   "bugs": {
     "url": "https://github.com/dev-academy-challenges/pupparazzi/issues"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "eslintConfig": {
     "extends": "eda"
   },

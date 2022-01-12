@@ -104,15 +104,7 @@ server.get('/puppies/add', (req, res) => {
       return JSON.parse(rawJSON)
     })
     .then(data => {
-      const pupObj = data.puppies.find(pup => JSON.stringify(pup.id) === req.params.id)
-      const viewData = {
-      id: pupObj.id,
-      image: pupObj.image,
-      breed: pupObj.breed,
-      name: pupObj.name,
-      owner: pupObj.owner
-      }
-      return res.render('edit', viewData)
+      return res.render('addpup', data)
     })
     .catch(error => {
       console.error(error.message)
@@ -121,9 +113,10 @@ server.get('/puppies/add', (req, res) => {
 
 server.post('/puppies/add', (req, res) => {
   const pupsArr = data.puppies
-  const maxId = data.puppies.map(id => id = data.puppies.id)
+  const idArr = data.puppies.map(pupId => pupId.id)
+  const maxId = Math.max(...idArr)
   const newObj = {
-    id: parseInt(index),
+    id: maxId + 1,
     image: req.body.image,
     breed: req.body.breed,
     name: req.body.name,
