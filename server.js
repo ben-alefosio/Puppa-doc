@@ -5,6 +5,8 @@ const path = require('path')
 const fs = require('fs')
 const server = express()
 
+// Import data
+const data = require('./data.json')
 
 // Server configuration
 // settind up static folder (for HTML, css, imagine etc)
@@ -23,24 +25,44 @@ server.set('view engine', 'hbs')
 // server.get('/', (req, res) => {
 //   res.send('Hello this is TOP PAGE!')
 // })
-server.get('/', (req, res) => {
-  const viewData = {
-    title: 'Homepage'
-  }
 
-  const template = 'home'
-  res.render(template, viewData)
-})
 
 
 // test //
 const filepath = path.join(__dirname, 'data.json')
-console.log(filepath)
 
-fs.readFile(filepath, 'utf8', (err, puppyData) => {
-  const puppy = JSON.parse(puppyData)
-  console.log(puppy.puppies[0].id)
+server.get('/', (req, res) => {
+  fs.readFile(filepath, 'utf8', (err, puppyData) => {
+    const puppy = JSON.parse(puppyData)
+    console.log(puppy.name)
+  })
+
+
+  const viewData = {
+    puppies: data.puppies,
+    id: data.puppies[0].id,
+    image: data.puppies[0].image,
+    name: data.puppies[0].name
+    // id: puppy.puppies[0].id,
+  }
+  const template = 'home'
+  res.render(template, viewData)
+
+
 })
+
+// const filepath = path.join(__dirname, 'data.json')
+// fs.readFile(filepath, 'utf8')
+//   .then((data) => {
+//     const pupData = JSON.parse(data)
+//     console.log(pupData)
+//     return pupData
+//   })
+//   .catch((err) => {
+//     console.error(err)
+//   })
+
+
 
 // Export
 module.exports = server
