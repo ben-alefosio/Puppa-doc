@@ -28,28 +28,28 @@ const filepath = path.join(__dirname, 'data.json')
 // console.log(filepath)
 // const realPuppyData = JSON.parse(filepath)
 
-server.get('/', (req,res) => {
-    // console.log('hello initial')
-    fs.readFile(filepath, 'utf8', (err, contents) => {
-        if (err) {
-            console.error('sorry buddy, I cant read your file')  
-            return
-        } 
-        // console.log("hello again")
-        const parsedContents = JSON.parse(contents)
-        const viewData = {
-            puppies: parsedContents.puppies
-        }
-        // console.log(viewData)
-        // console.log(parsedContents)
-        res.render('home', viewData)
-    })
+server.get('/', (req, res) => {
+  // console.log('hello initial')
+  fs.readFile(filepath, 'utf8', (err, contents) => {
+    if (err) {
+      console.error('sorry buddy, I cant read your file')
+      return
+    }
+    // console.log("hello again")
+    const parsedContents = JSON.parse(contents)
+    const viewData = {
+      puppies: parsedContents.puppies
+    }
+    // console.log(viewData)
+    // console.log(parsedContents)
+    res.render('home', viewData)
+  })
 })
 
 // function test () {
 //     const filepath = path.join(__dirname, 'data.json')
 //     const realPuppyData = JSON.parse(filepath)
-//     console.log(realPuppyData) 
+//     console.log(realPuppyData)
 // }
 
 // console.log('testing the parse' + test())
@@ -80,14 +80,13 @@ server.get('/', (req,res) => {
 
 // })
 
-
 // server.get('/puppies', (req,res) => {
 //     const filepath = path.join(__dirname, 'data.json')
 //     fs.readFile(filepath, 'utf8', (err, data) => {
 //         if (err) {
 //             console.error('Cant read the file')
 //             return
-//         } 
+//         }
 //         try {
 //             const realData = JSON.parse(data)
 //         } catch (erra) {
@@ -98,6 +97,3 @@ server.get('/', (req,res) => {
 //     })
 // console.log(realData)
 // })
-
-
-

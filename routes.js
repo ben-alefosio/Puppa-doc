@@ -8,15 +8,15 @@ module.exports = router
 
 // -------------------------------------------------
 
-const filepath = path.join(__dirname, 'data.json')
+// const filepath = path.join(__dirname, 'data.json')
 
-router.get('/', (req, res) => {
-  fs.readFile(filepath, dogo, 'utf8') 
-    .then(()=> {
-    const parsedOutDog = JSON.parse(dogo)
-    res.send(parsedOutDog)
-    } 
-})
+// router.get('/', (req, res) => {
+//   fs.readFile(filepath, dogo, 'utf8') 
+//     .then(()=> {
+//     const parsedOutDog = JSON.parse(dogo)
+//     res.send(parsedOutDog)
+//     } 
+//   })
 
 
 // router.get('/puppies/:id', (req,res) => {
