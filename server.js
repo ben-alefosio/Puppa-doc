@@ -1,6 +1,6 @@
 const express = require('express')
 const hbs = require('express-handlebars')
-const routes = require('./routes')
+const routes = require('./routes.js')
 
 const server = express()
 
@@ -30,7 +30,7 @@ const filepath = path.join(__dirname, 'data.json')
 
 server.get('/', (req, res) => {
   // console.log('hello initial')
-  fs.readFile(filepath, 'utf8', (err, contents) => {
+  data = fs.readFile(filepath, 'utf8', (err, contents) => {
     if (err) {
       console.error('sorry buddy, I cant read your file')
       return
