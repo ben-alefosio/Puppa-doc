@@ -6,7 +6,7 @@
   "author": "EDA",
   "license": "ISC",
   "scripts": {
-    "start": "nodemon",
+    "start": "node index",
     "dev": "nodemon index --ignore data.json",
     "lint": "eslint .",
     "test": "jest --watchAll"
