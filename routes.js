@@ -5,13 +5,11 @@ const router = express()
 
 module.exports = router
 
+// Get main puppy page
 router.get('/', (req, res) => {
-  //const id = Number(req.params.id) 
-  fs.readFile('./data.json', 'utf-8')
+    fs.readFile('./data.json', 'utf-8')
     .then(function (result) {
-      const parsedPups = JSON.parse(result)
-      console.log(`I am here ${parsedPups}`)
-      console.log(parsedPups)
+      const parsedPups = JSON.parse(result)      
       const template = 'home'
       const viewData = {
         puppies: parsedPups.puppies
@@ -24,18 +22,19 @@ router.get('/', (req, res) => {
     })
 })
 
+// Get individual puppy page
 router.get('/puppies/:id', (req, res) => {
-  const id = Number(req.params.id) 
+  const id = Number(req.params.id) - 1
   fs.readFile('./data.json', 'utf-8')
     .then(function (result) {
-      const parsedPups = JSON.parse(result)
-      console.log(`I am here ${parsedPups}`)
-      console.log(parsedPups)
-      const template = 'home'
+      const parsedPups = JSON.parse(result)     
+      const template = 'details'
       const viewData = {
         puppies: parsedPups.puppies[id]
       }
-      res.render(template, viewData)
+      res.render(template, parsedPups.puppies[id])
+
+      console.log(parsedPups.puppies[id])
       return null
     })
     .catch(function (error) {
