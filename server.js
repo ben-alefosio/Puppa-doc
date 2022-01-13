@@ -44,11 +44,11 @@ server.get('/puppies/:id', (req, res) => {
     .then(data => {
       const pupObj = data.puppies.find(pup => JSON.stringify(pup.id) === req.params.id)
       const viewData = {
-      id: pupObj.id,
-      image: pupObj.image,
-      breed: pupObj.breed,
-      name: pupObj.name,
-      owner: pupObj.owner
+        id: pupObj.id,
+        image: pupObj.image,
+        breed: pupObj.breed,
+        name: pupObj.name,
+        owner: pupObj.owner
       }
       return res.render('details', viewData)
     })
@@ -65,11 +65,11 @@ server.get('/puppies/:id/edit', (req, res) => {
     .then(data => {
       const pupObj = data.puppies.find(pup => JSON.stringify(pup.id) === req.params.id)
       const viewData = {
-      id: pupObj.id,
-      image: pupObj.image,
-      breed: pupObj.breed,
-      name: pupObj.name,
-      owner: pupObj.owner
+        id: pupObj.id,
+        image: pupObj.image,
+        breed: pupObj.breed,
+        name: pupObj.name,
+        owner: pupObj.owner
       }
       return res.render('edit', viewData)
     })
@@ -98,25 +98,16 @@ server.post('/puppies/:id/edit', (req, res) => {
     })
 })
 
-server.get('/puppies/add', (req, res) => {
-  fs.readFile('data.json', 'utf-8')
-    .then(rawJSON => {
-      return JSON.parse(rawJSON)
-    })
-    .then(data => {
-      return res.render('addpup', data)
-    })
-    .catch(error => {
-      console.error(error.message)
-    })
+server.get('/pupper/add', (req, res) => {
+  res.render('addpup')
 })
 
-server.post('/puppies/add', (req, res) => {
+server.post('/pupper/add', (req, res) => {
   const pupsArr = data.puppies
   const idArr = data.puppies.map(pupId => pupId.id)
-  const maxId = Math.max(...idArr)
+  const newPupId = Math.max(...idArr) + 1
   const newObj = {
-    id: maxId + 1,
+    id: newPupId,
     image: req.body.image,
     breed: req.body.breed,
     name: req.body.name,
@@ -124,8 +115,9 @@ server.post('/puppies/add', (req, res) => {
   }
   pupsArr.push(newObj)
   const newData = { puppies: pupsArr }
+  newPupIndex = newPupId.toString()
   fs.writeFile('data.json', JSON.stringify(newData), 'utf-8')
-    .then(() => { return res.redirect(`/puppies/${index}`) })
+    .then(() => { return res.redirect(`/puppies/${newPupIndex}`) })
     .catch(error => {
       console.error(error.message)
     })
