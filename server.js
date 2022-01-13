@@ -2,7 +2,7 @@ const express = require('express')
 const hbs = require('express-handlebars')
 const path = require('path')
 
-//const router = require('./routes')
+const router = require('./routes')
 
 const fsPromises = require('fs').promises
 
@@ -19,8 +19,6 @@ server.use(express.urlencoded({ extended: false }))
 server.engine('hbs', hbs({ extname: 'hbs' }))
 server.set('view engine', 'hbs')
 
-//router
-//server.use('/puppies', router)
 
 
 // Your routes/router(s) should go here
@@ -43,3 +41,6 @@ server.get('/', (req, res) => {
   })
 
 
+  
+//router
+server.use('/puppies/:id', router)
