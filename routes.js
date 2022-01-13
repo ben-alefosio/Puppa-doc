@@ -41,3 +41,36 @@ router.get('/puppies/:id', (req, res) => {
       console.log(error)
     })
 })
+
+// GET edit Puppy Page
+router.get('/puppies/:id/edit', (req, res) => {
+  const id = Number(req.params.id) - 1
+  fs.readFile('./data.json', 'utf-8')
+    .then(function (result) {
+      const parsedPups = JSON.parse(result)     
+      const template = 'edit'
+ 
+      res.render(template, parsedPups.puppies[id])
+
+     // console.log(parsedPups.puppies[id])
+      return null
+    })
+    .catch(function (error) {
+      console.log(error)
+  })
+})
+
+// POST Puppy edits
+router.post('/puppy/:id/edit', (req, res) => {
+  const id = Number(req.params.id) - 1
+  const parsedPups = JSON.parse(result)
+  const newArr = parsedPups.filter(pup => pup === id)
+  // New Object
+  const updatePup = {
+    id: id,
+    image: parsedPups,
+    breed: req.body.breed,
+    name: req.body.name,
+    owner: req.body.owner      
+      }
+})
