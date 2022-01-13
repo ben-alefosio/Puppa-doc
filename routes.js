@@ -6,7 +6,7 @@ const fsPromises = require('fs').promises
 module.exports = router
 
 router.get('/:id', (req, res) => {
-  // res.send('This is working!' + req.params.igaad)
+  // res.send('This is working!' + req.params.id)
   fsPromises.readFile('data.json', 'utf8')
     .then((puppy) => {
       const realPuppyData = JSON.parse(puppy)
