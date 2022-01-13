@@ -14,7 +14,11 @@ router.get('/puppies/:id', (req, res) => {
     .then((puppsData) => {
 
       const data = JSON.parse(puppsData)
+      // <<have to check later>>
 
+      // const pupdata = data.find(item => item.id === id)
+      // console.log(data)
+      // res.render('details', data.puppies[id])
 
       const viewData = {
         name: data.puppies[id].name,
@@ -50,7 +54,6 @@ router.get('/puppies/:id/edit', (req, res) => {
         image: data.puppies[id].image,
         id: data.puppies[id]
       }
-
       res.render('edit', viewData)
     })
 
