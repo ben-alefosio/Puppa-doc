@@ -2,15 +2,17 @@
 const express = require('express')
 const hbs = require('express-handlebars')
 const fs = require('fs').promises
-const puppiesRouter = require('./puppies')
+const puppiesRouter = require('./puppiesroutes')
 
 const server = express()
+
+const port = process.env.PORT || 3000
 
 
 // Server configuration
 server.use(express.static('public'))
 server.use(express.urlencoded({ extended: false }))
-server.use('/puppies', puppiesRouter)
+server.use('/puppiesroutes', puppiesRouter)
 
 // Handlebars configuration
 server.engine('hbs', hbs({ extname: 'hbs' }))
@@ -42,3 +44,7 @@ server.get('/', (req, res) => {
 
 
 module.exports = server
+
+//include tests in your stretch goals 
+//don't be bumed out if you dont' get to them 
+//data contract what shape the view data will be in 
