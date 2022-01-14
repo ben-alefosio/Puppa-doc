@@ -10,25 +10,25 @@ router.get('/puppies/:id', (req, res) => {
 
   const id = Number(req.params.id) - 1
   console.log('id', id)
+
   fs.readFile('data.json', 'utf-8')
     .then((puppsData) => {
 
       const data = JSON.parse(puppsData)
-      // <<have to check later>>
+      const pupdata = data.puppies.find(item => item.id === id)
 
-      // const pupdata = data.find(item => item.id === id)
-      // console.log(data)
-      // res.render('details', data.puppies[id])
+      // ----- << not good way but still working>> ------
+      // const viewData = {
+      //   name: data.puppies[id].name,
+      //   breed: data.puppies[id].breed,
+      //   owner: data.puppies[id].owner,
+      //   image: data.puppies[id].image,
+      //   id: id + 1
+      // }
+      // res.render('details', viewData)
+      // --------------------------------------------------
 
-      const viewData = {
-        name: data.puppies[id].name,
-        breed: data.puppies[id].breed,
-        owner: data.puppies[id].owner,
-        image: data.puppies[id].image,
-        id: id + 1
-      }
-
-      res.render('details', viewData)
+      res.render('details', pupdata)
     })
 
     .catch(err => {
