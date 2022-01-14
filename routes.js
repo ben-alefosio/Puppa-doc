@@ -7,15 +7,17 @@ module.exports = router
 
 // << Routes for pupiies>> 
 router.get('/puppies/:id', (req, res) => {
-
+  // console.log('param', req.params.id)
   const id = Number(req.params.id) - 1
-  console.log('id', id)
+  // console.log('id', id)
 
   fs.readFile('data.json', 'utf-8')
     .then((puppsData) => {
 
       const data = JSON.parse(puppsData)
-      const pupdata = data.puppies.find(item => item.id === id)
+      // console.log('xxx', data.puppies[id].id)
+      const pupdata = data.puppies.find(item => item.id - 1 === id)
+      // console.log('this is pupdata', pupdata)
 
       // ----- << not good way but still working>> ------
       // const viewData = {
@@ -46,6 +48,7 @@ router.get('/puppies/:id/edit', (req, res) => {
     .then((puppsData) => {
 
       const data = JSON.parse(puppsData)
+      const pupdata = data.puppies.find(item => item.id - 1 === id)
 
       const viewData = {
         name: data.puppies[id].name,
@@ -54,7 +57,8 @@ router.get('/puppies/:id/edit', (req, res) => {
         image: data.puppies[id].image,
         id: data.puppies[id]
       }
-      res.render('edit', viewData)
+
+      res.render('edit', pupdata)
     })
 
     .catch(err => {

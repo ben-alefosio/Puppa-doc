@@ -22,6 +22,7 @@ server.get('/', (req, res) => {
   fs.readFile('data.json', 'utf-8')
     .then((puppsData) => {
       const data = JSON.parse(puppsData)
+
       const viewData = {
         puppies: data.puppies
       }
