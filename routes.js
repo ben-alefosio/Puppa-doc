@@ -24,17 +24,17 @@ router.get('/', (req, res) => {
 
 // Get individual puppy page
 router.get('/puppies/:id', (req, res) => {
-  const id = Number(req.params.id) - 1
+  const index = Number(req.params.id) - 1
   fs.readFile('./data.json', 'utf-8')
     .then(function (result) {
       const parsedPups = JSON.parse(result)     
       const template = 'details'
       const viewData = {
-        puppies: parsedPups.puppies[id]
+        puppies: parsedPups.puppies[index]
       }
-      res.render(template, parsedPups.puppies[id])
+      res.render(template, parsedPups.puppies[index])
 
-      console.log(parsedPups.puppies[id])
+      console.log(parsedPups.puppies[index])
       return null
     })
     .catch(function (error) {
@@ -44,13 +44,13 @@ router.get('/puppies/:id', (req, res) => {
 
 // GET edit Puppy Page
 router.get('/puppies/:id/edit', (req, res) => {
-  const id = Number(req.params.id) - 1
+  const index = Number(req.params.id) - 1
   fs.readFile('./data.json', 'utf-8')
     .then(function (result) {
       const parsedPups = JSON.parse(result)     
       const template = 'edit'
- 
-      res.render(template, parsedPups.puppies[id])
+      //console.log()
+      res.render(template, parsedPups.puppies[index])
 
      // console.log(parsedPups.puppies[id])
       return null
@@ -61,16 +61,53 @@ router.get('/puppies/:id/edit', (req, res) => {
 })
 
 // POST Puppy edits
-router.post('/puppy/:id/edit', (req, res) => {
-  const id = Number(req.params.id) - 1
-  const parsedPups = JSON.parse(result)
-  const newArr = parsedPups.filter(pup => pup === id)
-  // New Object
+router.post('/puppies/:id/edit', (req, res) => {
+  // Get the index from the URL
+  const id = Number(req.params.id)
+  
+  // New Object for puppy update
   const updatePup = {
     id: id,
-    image: parsedPups,
-    breed: req.body.breed,
     name: req.body.name,
-    owner: req.body.owner      
-      }
-})
+    owner: req.body.owner,
+    image: req.body.image,
+    breed: req.body.breed
+  }
+
+  // Read in the JSON File
+  fs.readFile('./data.json', 'utf-8')
+    .then(function (result) {
+      const parsedPups = JSON.parse(result)
+
+      let updatedPups = parsedPups.puppies.map(pup => {
+        if (pup.id === id) {
+
+          pup = updatePup
+        }
+
+        return pup
+      })
+
+      parsedPups.puppies = updatedPups
+      pups = JSON.stringify(parsedPups)
+
+      fs.writeFile('./data.json', pups, 'utf-8')
+        .then(() => { return res.redirect(`/puppies/${id}`) })
+        .catch(err => {
+          console.error(err.message)
+        })
+    })
+       
+ 
+    
+    
+
+  // Update the selected puppy in the array
+
+
+  // Write the update puppy back to the JSON file
+
+  // Redirect to the GET /puppies/:id route
+  
+ 
+}) 
