@@ -15,11 +15,11 @@
       "breed": "Labrador"
     },
     {
-      "id": 3,
       "name": "Magnum",
+      "breed": "Rottweilerdd",
       "owner": "Michael",
       "image": "/images/puppy3.jpg",
-      "breed": "Rottweiler"
+      "id": 3
     },
     {
       "id": 4,
