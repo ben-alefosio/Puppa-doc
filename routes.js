@@ -1,6 +1,6 @@
 const express = require ('express')
-const { fstat } = require('fs')
 
+const fsPromises = require('fs').promises
 // const { router } = require('./server')
 
 const router = express.Router()
@@ -11,17 +11,20 @@ const path = require('path')
 
 const dogData = path.join(__dirname, 'data.json')
 
-router.use('/puppies/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     console.log('test')
-    // //const whichPuppy = parseInt(req.params.id) - 1
 
-    // fsPromises.readFile(dogData, 'utf-8')
-    // .then((contentsOfDataFile) => {
+   // console.log(req.params.id)
+ //  (req.params.id)
 
-    // const turnToObj = JSON.parse(contentsOfDataFile)
+    fsPromises.readFile(dogData, 'utf-8')
+    .then((contentsOfDataFile) => {
 
-    // res.render('details', turnToObj.puppies[1])
-    res.send(dogData)
+    const turnToObj = JSON.parse(contentsOfDataFile)
+
+    res.render('details', turnToObj.puppies[1])
+    
    
 
     } )
+})

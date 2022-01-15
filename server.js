@@ -43,4 +43,4 @@ server.get('/', (req, res) => {
 
   
 //router
-server.use('/puppies/:id', router)
+server.use('/puppies', router)
