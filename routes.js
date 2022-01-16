@@ -47,16 +47,33 @@ router.get('/:id/edit', (req, res) => {
     .catch((err) => {
       console.log('edit page did not load correctly')
     })
-
+})
 
 
   router.post('/:id/edit', (req, res) => {
-
+    
+    const id = parseInt(req.params.id)
     newPuppyData = req.body
+    
     console.log(newPuppyData)
 
-    // fs.readFile(dogData, 'utf-8')
+    fs.readFile(dogData, 'utf-8')
+    .then((puppyData) => {
 
+      const turnToObj = JSON.parse(puppyData)
+     
+      const puppyEdit = turnToObj.puppies.map(puppy => puppy.id === id)
+
+      .then(() => {
+        const stringify = JSON.stringify(newPuppyData)
+console.log(stringify)
+      })
+
+      .then(() => res.redirect(`/puppies/${id}`))
+      .catch((err) => {
+        console.log(err, 'error, edit did not go through')
+      })
+    })
 
   })
-})
+  
