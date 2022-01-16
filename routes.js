@@ -1,8 +1,8 @@
-// const express = require("express");
+const express = require("express");
 
-// const router = express.Router();
+const router = express.Router();
 
-// module.exports = router;
+module.exports = router;
 
 // router.get("/", (req, res) => {
 //   res.send("here is the profile page as read-only");
