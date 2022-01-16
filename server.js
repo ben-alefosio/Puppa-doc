@@ -1,30 +1,28 @@
 const express = require('express')
 const hbs = require('express-handlebars')
 const fsPromises = require('fs').promises
-// const path = require('path')
-
-// exports
-const routes = ('./routes')
 
 // Import data
-// const data = require('./data.json')
-
 const server = express()
 module.exports = server
+const routesFile = require('./routes') // import the use of this file
 
 // Server configuration
 server.use(express.static('public'))
-// sets up file being able to accept encoded data from a form
-server.use(express.urlencoded({ extended: false }))
+server.use(express.urlencoded({ extended: false })) // sets up file being able to accept encoded data from a form
 
 // Handlebars configuration
 server.engine('hbs', hbs({ extname: 'hbs' }))
 server.set('view engine', 'hbs')
 
 // Your routes/router(s) should go here
-// makes a file path then turns data.json into an object
+server.use('/', routesFile) // tells server to use the route
 
-// const filepath = path.join(__dirname, 'data.json')
+server.get('/puppies', (req, res) => {
+  res.send('test test')
+})
+
+// makes a file path then turns data.json into an object
 
 server.get('/', (req, res) => {
   fsPromises.readFile('data.json', 'utf8')
