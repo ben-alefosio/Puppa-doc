@@ -17,16 +17,15 @@ server.use(express.urlencoded({ extended: false }))
 server.engine('hbs', hbs({ extname: 'hbs' }))
 server.set('view engine', 'hbs')
 
-// Your routes/router(s) should go here
+// Get puppy home page
 server.get('/', (req, res) => {
   fsPromises.readFile('data.json', 'utf8')
-    .then((puppy) => {
-      const realPuppyData = JSON.parse(puppy)
-      console.log(realPuppyData)
-      res.render('home', realPuppyData)
+    .then((data) => {
+      const parsePuppyData = JSON.parse(data)
+      res.render('home', parsePuppyData)
       return null
     })
     .catch(err => {
-      console.log(err)
+      console.error(err.message)
     })
 })
