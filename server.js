@@ -4,6 +4,7 @@ const fsPromises = require("fs").promises;
 
 const server = express();
 module.exports = server;
+const pupRoute = require("./routes");
 
 // Server configuration
 server.use(express.static("public"));
@@ -14,6 +15,12 @@ server.engine("hbs", hbs({ extname: "hbs" }));
 server.set("view engine", "hbs");
 
 // Your routes/router(s) should go here
+server.use("/", pupRoute);
+
+server.get("/puppies", (req, res) => {
+  res.send("test test");
+});
+
 server.get("/", (req, res) => {
   fsPromises.readFile("data.json", "utf8").then((data) => {
     const viewData = JSON.parse(data);
