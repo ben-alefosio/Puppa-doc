@@ -67,8 +67,53 @@ router.get('/puppies/:id/edit', (req, res) => {
 // 4. Write the entire array back into the JSON file
 // 5. Redirect to the GET / puppies /: id route
 
-router.post('/puppies/:id/edit', (req, res) => {
-  console.log(req.body)
-  res.send('hey')
-})
+// const data = require('./data.json')
 
+// const puppsData = fs.readFile('data.json', 'utf-8')
+
+
+
+
+router.post('/puppies/:id/edit', (req, res) => {
+  // console.log('test')
+  // console.log(req.body)
+  const id = Number(req.params.id)
+
+  // New Object for puppy update
+  const edited = {
+    id: id,
+    name: req.body.name,
+    owner: req.body.owner,
+    image: req.body.image,
+    breed: req.body.breed
+  }
+
+
+  fs.readFile('data.json', 'utf-8')
+    .then((puppsData) => {
+
+      const data = JSON.parse(puppsData)
+      const pupdata = data.puppies.find(item => item.id === id)
+      // console.log(puppsData)
+      // console.log('XXX', pupdata);
+      // console.log('BODY', req.body)
+    })
+    .then(() => {
+      const edit = JSON.stringify(req.body, null, 2)
+      console.log('ed', edit)
+
+    })
+
+    // .then((edit) => {
+    //   fs.writeFile('./data.json', edit, 'utf-8')
+    // })
+
+    .then(
+      res.redirect(`/puppies/${id}`) // redirect takes one parameter
+    )
+
+    .catch(err => {
+      console.err('Opps')
+    })
+
+})
