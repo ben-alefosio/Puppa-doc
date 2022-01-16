@@ -13,7 +13,7 @@
   },
   "engines": {
     "node": "16.x"
-},
+  },
   "homepage": "https://github.com/dev-academy-challenges/pupparazzi#readme",
   "repository": {
     "type": "git",
@@ -41,5 +41,4 @@
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2"
   }
-  
 }

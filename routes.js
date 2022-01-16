@@ -1,6 +1,6 @@
-const express = require ('express')
+const express = require('express')
 
-const fsPromises = require('fs').promises
+const fs = require('fs').promises
 // const { router } = require('./server')
 
 const router = express.Router()
@@ -12,19 +12,51 @@ const path = require('path')
 const dogData = path.join(__dirname, 'data.json')
 
 router.get('/:id', (req, res) => {
-    console.log('test')
+  // console.log('test')
 
-   // console.log(req.params.id)
- //  (req.params.id)
-
-    fsPromises.readFile(dogData, 'utf-8')
+  fs.readFile(dogData, 'utf-8')
     .then((contentsOfDataFile) => {
 
-    const turnToObj = JSON.parse(contentsOfDataFile)
+      const turnToObj = JSON.parse(contentsOfDataFile)
 
-    res.render('details', turnToObj.puppies[1])
-    
-   
 
-    } )
+      res.render('details', turnToObj.puppies[req.params.id - 1])
+
+    })
+    .catch((err) => {
+      console.log('page did not load correctly')
+    })
+})
+
+router.get('/:id/edit', (req, res) => {
+
+  const id = parseInt(req.params.id)
+
+  fs.readFile(dogData, 'utf-8')
+    .then((contentsOfDataFile) => {
+
+      const turnToObj = JSON.parse(contentsOfDataFile)
+
+
+      const puppyEdit = turnToObj.puppies.find(puppy => puppy.id === id)
+
+
+      res.render('edit', puppyEdit)
+
+    })
+    .catch((err) => {
+      console.log('edit page did not load correctly')
+    })
+
+
+
+  router.post('/:id/edit', (req, res) => {
+
+    newPuppyData = req.body
+    console.log(newPuppyData)
+
+    // fs.readFile(dogData, 'utf-8')
+
+
+  })
 })
