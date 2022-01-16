@@ -3,6 +3,8 @@ const hbs = require('express-handlebars')
 const fs = require('fs').promises
 const server = express()
 
+module.exports = server
+
 // Server configuration
 server.use(express.static('public'))
 server.use(express.urlencoded({ extended: false }))
@@ -15,13 +17,8 @@ server.set('view engine', 'hbs')
 server.get('/', (req, res) => {
   fs.readFile('data.json', 'utf-8')
     .then((puppies) => {
-      const puppiesJson = JSON.parse(puppies)
-      console.log(puppies)
-      const viewData = {
-        puppies: puppiesJson.puppies
-      }
-      console.log(viewData)
-      res.render('home', viewData)
+      const puppiesJs = JSON.parse(puppies)  // parse the data into a JavaScript object
+      res.render('home', puppiesJs)
       return null
     })
     .catch(err => {
@@ -29,4 +26,3 @@ server.get('/', (req, res) => {
     })
 })
 
-module.exports = server
