@@ -5,11 +5,13 @@ const fsPromises = require('fs/promises');
 const { parse } = require('path');
 
 const image = require('./data.json')
+const router = require('./router')
 const server = express()
 
 // Server configuration
 server.use(express.static('public'))
 server.use(express.urlencoded({ extended: false }))
+server.use(router)
 // server.use(express.static(path.join(__dirname + 'public')));
 
 // Handlebars configuration
@@ -37,6 +39,11 @@ server.get('/', (req, res) => {
     
     
 })
+
+
+
+
+
 
 
 
