@@ -18,9 +18,12 @@ router.get('/:id', (req, res) => {
     .then((contentsOfDataFile) => {
 
       const turnToObj = JSON.parse(contentsOfDataFile)
+      // .find taking puppy that has id of parameter 
+      const viewData = turnToObj.puppies.find(puppy => puppy.id === Number(req.params.id))
 
-
-      res.render('details', turnToObj.puppies[req.params.id - 1])
+        console.log(viewData)
+        console.log(Number(req.params.id));
+      res.render('details', viewData)
 
     })
     .catch((err) => {
@@ -49,31 +52,45 @@ router.get('/:id/edit', (req, res) => {
     })
 })
 
+//colon means that it is dynamic 
+router.post('/:id/edit', (req, res) => {
 
-  router.post('/:id/edit', (req, res) => {
-    
-    const id = parseInt(req.params.id)
-    newPuppyData = req.body
-    
-    console.log(newPuppyData)
+  const id = parseInt(req.params.id)
+  //req.body form from website, object not array
+  const newPuppyData = req.body
+  newPuppyData.id = Number(newPuppyData.id)
 
-    fs.readFile(dogData, 'utf-8')
-    .then((puppyData) => {
 
-      const turnToObj = JSON.parse(puppyData)
+  // readfile always returns a string because of utf=8
+  fs.readFile(dogData, 'utf-8')
+    .then((data) => {
+ 
+      //parse makes data into an object so we can process it . arrayof pups is not updated yet. 
+      const arrayOfPups = JSON.parse(data)
      
-      const puppyEdit = turnToObj.puppies.map(puppy => puppy.id === id)
+      
+      //remove the id just dealt with. Filter everything except !== id which we just clicked on and updated. Weare going to insert it
+      //const puppyEdit = arrayOfPups.puppies.filter(puppy => puppy.id !== id)
+      console.log('array of pups', arrayOfPups)
+      const index = arrayOfPups.puppies.findIndex(pup => pup.id === Number(newPuppyData.id))
 
-      .then(() => {
-        const stringify = JSON.stringify(newPuppyData)
-console.log(stringify)
-      })
+      const before = arrayOfPups.puppies.slice(0, index)
+      const after = arrayOfPups.puppies.slice(index+1)
+      const newArray = [...before, newPuppyData, ...after]
 
-      .then(() => res.redirect(`/puppies/${id}`))
-      .catch((err) => {
-        console.log(err, 'error, edit did not go through')
-      })
+      // object. Putting the new data into the puppies object
+      const puppies = { puppies: newArray }
+      console.log(id)
+      const finalPup = JSON.stringify(puppies, null, 2)
+      console.log(finalPup)
+       fs.writeFile(dogData, finalPup, 'utf-8')
+      .then(res.redirect(`/puppies/${id}`))
+
+     
     })
+})
 
-  })
-  
+// // router.post('/:id/edit', (req, res) => {
+
+// //   const id = parseInt(req.params.id)
+// // })
