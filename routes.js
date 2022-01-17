@@ -67,46 +67,41 @@ router.get('/:id/edit', (req, res) => {
 // 4. Write the entire array back into the JSON file
 // 5. Redirect to the GET / puppies /: id route
 
-// const data = require('./data.json')
-
-// const puppsData = fs.readFile('data.json', 'utf-8')
-
-
-
 // << ':' is dynamic (changeabble) >>
 router.post('/:id/edit', (req, res) => {
-
   // console.log(typeof req.params.id) // string
-  const id = Number(req.params.id)
-  // console.log(typeof id) // number 
+  const id = Number(req.params.id)  // type of Number 
 
   fs.readFile('data.json', 'utf-8')
     .then((puppsData) => {
-
       // take all DATA
       const data = JSON.parse(puppsData)
-      // const pupdata = data.puppies.find(item => item.id === id)
 
-      // find specific object
       //https://stackoverflow.com/questions/56298481/how-to-fix-object-null-prototype-title-product
       // TO delete [Object: null prototype]
-      // const edited = req.body
-
-      const edited = req.body
-      edited.id = Number(edited.id)
-      // console.log('edited', edited);
-
-      // << filter >>
-      const filterdata = data.puppies.filter(obj => obj.id !== id)
+      const newPuppyData = req.body
+      newPuppyData.id = Number(newPuppyData.id)
+      console.log('new puppy', newPuppyData.id)
+      console.log('data.puppies', data.puppies)
+      // << filter version >>
+      // const filterdata = data.puppies.filter(obj => obj.id !== id)
       // console.log('filterdata', filterdata);
 
-      //  << changing the order  >>
-      // const index =
+      //  <<  changing the order  >>
+      const index = newPuppyData.id - 1
+      console.log('2', index)
+
+      const before = data.puppies.slice(0, index)
+      console.log('before', before);
+      const after = data.puppies.slice(index + 1)
+      console.log('after', after);
+
+      const newArray = [...before, newPuppyData, ...after]
 
       //  << Spread operator >> 
 
-      const newArrayofPup = [...filterdata, edited]
-      const newObjofPup = { puppies: newArrayofPup }
+      // const newArrayofPup = [...filterdata, newPuppyData]
+      const newObjofPup = { puppies: newArray }
       // console.log(obj);
 
       const finalPup = JSON.stringify(newObjofPup, null, 2)

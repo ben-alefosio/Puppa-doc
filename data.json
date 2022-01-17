@@ -1,10 +1,31 @@
 {
   "puppies": [
     {
-      "id": 2,
-      "name": "Coco",
+      "name": "X",
+      "breed": "Labrador",
+      "owner": "Fred",
+      "image": "/images/puppy1.jpg",
+      "id": 1
+    },
+    {
+      "name": "Cocochan",
+      "breed": "Labrador",
       "owner": "Louise",
       "image": "/images/puppy2.jpg",
+      "id": 2
+    },
+    {
+      "id": 3,
+      "name": "Magnum",
+      "owner": "Michael",
+      "image": "/images/puppy3.jpg",
+      "breed": "Rottweiler"
+    },
+    {
+      "id": 4,
+      "name": "Sadie",
+      "owner": "Sam",
+      "image": "/images/puppy4.jpg",
       "breed": "Labrador"
     },
     {
@@ -15,11 +36,11 @@
       "breed": "Pug"
     },
     {
-      "id": 6,
-      "name": "Bella",
-      "owner": "Briana",
+      "name": "Bellacharo",
+      "breed": "mix",
+      "owner": "Alvarito",
       "image": "/images/puppy6.jpg",
-      "breed": "Labrador"
+      "id": 6
     },
     {
       "id": 7,
@@ -27,27 +48,6 @@
       "owner": "Ricky",
       "image": "/images/puppy7.jpg",
       "breed": "Labrador"
-    },
-    {
-      "name": "X",
-      "breed": "X",
-      "owner": "X",
-      "image": "/images/puppy1.jpg",
-      "id": "1"
-    },
-    {
-      "name": "E",
-      "breed": "E",
-      "owner": "E",
-      "image": "/images/puppy3.jpg",
-      "id": "3"
-    },
-    {
-      "name": "X",
-      "breed": "Labrador",
-      "owner": "Sam",
-      "image": "/images/puppy4.jpg",
-      "id": 4
     }
   ]
 }
