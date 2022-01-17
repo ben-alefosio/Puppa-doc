@@ -1,3 +1,4 @@
+const { Router } = require('express')
 const express = require('express')
 const hbs = require('express-handlebars')
 
@@ -12,6 +13,8 @@ server.engine('hbs', hbs({ extname: 'hbs' }))
 server.set('view engine', 'hbs')
 
 // Your routes/router(s) should go here
-
+server.get('/', (req, res) => {
+  res.send('Pupparazzi')
+})
 
 module.exports = server
