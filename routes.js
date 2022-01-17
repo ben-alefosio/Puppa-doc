@@ -8,7 +8,7 @@ module.exports = router
 router.use(express.urlencoded({ extended: false }))
 
 // << Routes for pupiies>> 
-router.get('/puppies/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   // console.log('param', req.params.id)
   const id = Number(req.params.id) - 1
   // console.log('id', id)
@@ -42,7 +42,7 @@ router.get('/puppies/:id', (req, res) => {
 
 // << Edit pupiies>> 
 
-router.get('/puppies/:id/edit', (req, res) => {
+router.get('/:id/edit', (req, res) => {
 
   const id = Number(req.params.id) - 1
 
@@ -73,43 +73,52 @@ router.get('/puppies/:id/edit', (req, res) => {
 
 
 
+// << ':' is dynamic (changeabble) >>
+router.post('/:id/edit', (req, res) => {
 
-router.post('/puppies/:id/edit', (req, res) => {
-  // console.log('test')
-  // console.log(req.body)
+  // console.log(typeof req.params.id) // string
   const id = Number(req.params.id)
-
-  // New Object for puppy update
-  const edited = {
-    id: id,
-    name: req.body.name,
-    owner: req.body.owner,
-    image: req.body.image,
-    breed: req.body.breed
-  }
-
+  // console.log(typeof id) // number 
 
   fs.readFile('data.json', 'utf-8')
     .then((puppsData) => {
 
+      // take all DATA
       const data = JSON.parse(puppsData)
-      const pupdata = data.puppies.find(item => item.id === id)
-      // console.log(puppsData)
-      // console.log('XXX', pupdata);
-      // console.log('BODY', req.body)
+      // const pupdata = data.puppies.find(item => item.id === id)
+
+      // find specific object
+      //https://stackoverflow.com/questions/56298481/how-to-fix-object-null-prototype-title-product
+      // TO delete [Object: null prototype]
+      // const edited = req.body
+
+      const edited = req.body
+      edited.id = Number(edited.id)
+      // console.log('edited', edited);
+
+      // << filter >>
+      const filterdata = data.puppies.filter(obj => obj.id !== id)
+      // console.log('filterdata', filterdata);
+
+      //  << changing the order  >>
+      // const index =
+
+      //  << Spread operator >> 
+
+      const newArrayofPup = [...filterdata, edited]
+      const newObjofPup = { puppies: newArrayofPup }
+      // console.log(obj);
+
+      const finalPup = JSON.stringify(newObjofPup, null, 2)
+      console.log(finalPup);
+      fs.writeFile('./data.json', finalPup, 'utf-8', null, 2)
+
     })
+
+
     .then(() => {
-      const edit = JSON.stringify(req.body, null, 2)
-      console.log('ed', edit)
-
-    })
-
-    // .then((edit) => {
-    //   fs.writeFile('./data.json', edit, 'utf-8')
-    // })
-
-    .then(
-      res.redirect(`/puppies/${id}`) // redirect takes one parameter
+      return res.redirect(`/puppies/${id}`) // redirect takes one parameter
+    }
     )
 
     .catch(err => {
@@ -117,3 +126,4 @@ router.post('/puppies/:id/edit', (req, res) => {
     })
 
 })
+

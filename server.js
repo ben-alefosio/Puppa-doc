@@ -5,9 +5,9 @@ const fs = require('fs').promises
 
 const server = express()
 
-// Router 
+// Meke Router "/puppies " 
 const pupRouter = require('./routes')
-server.use(pupRouter)
+server.use('/puppies', pupRouter)
 
 // Server configuration
 server.use(express.static('public'))
