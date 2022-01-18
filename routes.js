@@ -21,8 +21,8 @@ router.get('/:id', (req, res) => {
       // .find taking puppy that has id of parameter 
       const viewData = turnToObj.puppies.find(puppy => puppy.id === Number(req.params.id))
 
-        console.log(viewData)
-        console.log(Number(req.params.id));
+       // console.log(viewData)
+        //console.log('number req params', Number(req.params.id));
       res.render('details', viewData)
 
     })
