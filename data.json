@@ -3,9 +3,9 @@
     {
       "id": 1,
       "name": "Fido",
-      "owner": "Fred",
-      "image": "/images/puppy1.jpg",
-      "breed": "Labrador"
+      "breed": "Labrador",
+      "owner": "Holly",
+      "image": "/images/puppy1.jpg"
     },
     {
       "id": 2,
@@ -38,19 +38,16 @@
     {
       "id": 6,
       "name": "Bella",
-      "owner": "Briana",
+      "owner": "Brianna",
       "image": "/images/puppy6.jpg",
       "breed": "Labrador"
     },
     {
       "id": 7,
       "name": "Rocky",
+      "breed": "Labrador",
       "owner": "Ricky",
-      "image": "/images/puppy7.jpg",
-      "breed": "Labrador"
+      "image": "/images/puppy7.jpg"
     }
-  ],
-  "name": "Coco",
-  "owner": "Ahmad",
-  "breed": "Labrador"
+  ]
 }

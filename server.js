@@ -5,13 +5,13 @@ const routes = require('./routes')
 
 const server = express()
 
-server.use('/puppies', routes)
-
 module.exports = server
 
 // Server configuration
 server.use(express.static('public'))
 server.use(express.urlencoded({ extended: false }))
+
+server.use(routes)
 
 // Handlebars configuration
 server.engine('hbs', hbs({ extname: 'hbs' }))
