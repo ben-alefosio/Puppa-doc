@@ -19,16 +19,16 @@ server.set('view engine', 'hbs')
 server.use('/', routesFile) // tells server to use the route
 
 server.get('/puppies', (req, res) => {
-  res.send('test test')
+  res.send('oops! wrong page! Go back to the main page!')
 })
 
+// ------- HOMEPAGE -------
 // makes a file path then turns data.json into an object
-
 server.get('/', (req, res) => {
   fsPromises.readFile('data.json', 'utf8')
     .then((data) => {
       const pupData = JSON.parse(data)
-      console.log(pupData)
+      // console.log(pupData)
       res.render('home', pupData)
       return null
     })
