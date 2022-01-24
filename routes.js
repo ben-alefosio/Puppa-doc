@@ -42,3 +42,9 @@ router.get('/puppies/:id', (req, res) => {
       console.error(('ooopsy Daisy', err))
     })
 })
+
+router.get('/puppies/:id/edit', (req, res) => {
+  console.log('param', req.params.id)
+}
+
+)
