@@ -19,27 +19,21 @@ server.use(express.urlencoded({ extended: false }))
 server.engine('hbs', hbs({ extname: 'hbs' }))
 server.set('view engine', 'hbs')
 
-//router
+// router
 server.use('/puppies', router)
 
 // Your routes/router(s) should go here
 
 server.get('/', (req, res) => {
-
-    fsPromises.readFile(dogData, 'utf-8')
+  fsPromises.readFile(dogData, 'utf-8')
     .then((contentsOfDataFile) => {
+      const turnToObj = JSON.parse(contentsOfDataFile)
 
-    const turnToObj = JSON.parse(contentsOfDataFile)
-
-    res.render('home', turnToObj)
-   
-
-    } )
-  
-    .catch((err) => {
-        console.error(err, 'there is an error')
+      res.render('home', turnToObj)
+      return null
     })
-  })
 
-
-  
+    .catch((err) => {
+      console.error(err, 'there is an error')
+    })
+})
