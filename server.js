@@ -1,9 +1,11 @@
 const express = require('express')
 const hbs = require('express-handlebars')
-const path = require('path')
 
+const path = require('path')
 const fs = require('fs').promises
 const puppiesData = path.join(__dirname, 'data.json')
+
+const routes = require('./routes')
 
 const server = express()
 
@@ -29,5 +31,7 @@ server.engine('hbs', hbs({ extname: 'hbs' }))
 server.set('view engine', 'hbs')
 
 // Your routes/router(s) should go here
+
+server.use('/puppies', routes)
 
 module.exports = server
