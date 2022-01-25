@@ -1,6 +1,7 @@
 const express = require('express')
 const hbs = require('express-handlebars')
 const fs = require('fs/promises')
+const puppyinfoRoute = require('./routes')
 
 const server = express()
 
@@ -16,6 +17,8 @@ server.set('view engine', 'hbs')
 // server.get('/', (req, res) => {
 //   res.send('Pupparazzi')
 // })
+
+server.use('/puppies', puppyinfoRoute)
 
 server.get('/', (req, res) => {
   fs.readFile('data.json')
