@@ -73,13 +73,12 @@ router.post('/:id/edit', (req, res) => {
       const newPuppyData = { puppies: noMatchingPuppy }
 
       //   console.log(newPuppyData)
-      fs.writeFile(puppiesData, JSON.stringify(newPuppyData), 'utf-8')
-      return null
-        .then(() => {
-          return res.redirect(`/puppies/${id}`)
-        })
-        .catch(err => {
-          console.error('opps something happend ', err)
-        })
+      return fs.writeFile(puppiesData, JSON.stringify(newPuppyData), 'utf-8')
+    })
+    .then(() => {
+      return res.redirect(`/puppies/${id}`)
+    })
+    .catch(err => {
+      console.error('opps something happend ', err)
     })
 })
