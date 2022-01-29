@@ -17,7 +17,7 @@ server.use(express.urlencoded({ extended: false }))
 server.engine('hbs', hbs({ extname: 'hbs' }))
 server.set('view engine', 'hbs')
 
-server.use('/puppies', routes)
+server.use('/', routes)
 
 module.exports = server
 
@@ -30,7 +30,7 @@ const filepath = path.join(__dirname, 'data.json')
 
 server.get('/', (req, res) => {
   // console.log('hello initial')
-  data = fs.readFile(filepath, 'utf8', (err, contents) => {
+  fs.readFile(filepath, 'utf8', (err, contents) => {
     if (err) {
       console.error('sorry buddy, I cant read your file')
       return

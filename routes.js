@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
 
 // const filepath = path.join(__dirname, 'data.json')
 
-router.get('/:id', (req, res) => {
+router.get('/puppies/:id', (req, res) => {
   console.log('sup router')
   fs.readFile(filepath, 'utf8')
     .then(data => {
@@ -44,12 +44,16 @@ router.get('/:id', (req, res) => {
     })
     .then(parsedDoggo => {
       const dogObject = parsedDoggo.puppies.find(indPuppy => JSON.stringify(indPuppy.id) === req.params.id)
-      console.log (dogObject)
+      console.log ('this is the dogObject inside of then /puppies/id router', dogObject)
       const viewData = {
-        hey: dogObject.puppies.id,
-        hello: dogObject
+        id: dogObject.id,
+        image: dogObject.image,
+        name: dogObject.name,
+        breed: dogObject.breed,
+        owner: dogObject.owner
       }
-      return res.render('home', viewData)
+      console.log(viewData)
+      return res.render('details', viewData)
     })
   .catch(error => {
     console.error(error.message)
