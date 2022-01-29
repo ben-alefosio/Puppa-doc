@@ -1,18 +1,18 @@
 {
   "puppies": [
     {
-      "id": 1,
-      "name": "Fido",
+      "name": "Fida",
+      "breed": "Labrador",
       "owner": "Fred",
       "image": "/images/puppy1.jpg",
-      "breed": "Labrador"
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Coco",
-      "owner": "Louise",
+      "name": "Babe",
+      "breed": "Husky",
+      "owner": "Kate Han",
       "image": "/images/puppy2.jpg",
-      "breed": "Labrador"
+      "id": 2
     },
     {
       "id": 3,
