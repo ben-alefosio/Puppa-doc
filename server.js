@@ -1,6 +1,7 @@
 const express = require('express')
 const hbs = require('express-handlebars')
 const fs = require('fs/promises')
+const routes = require('./routes')
 
 const server = express()
 
@@ -29,5 +30,7 @@ server.get('/', (req, res) => {
       console.error('Check file name or path maybe? ', err.path)
   })  
 })
+
+server.use(routes)
 
 module.exports = server
