@@ -1,4 +1,3 @@
-// const port = process.env.PORT || 8000
 const express = require('express')
 const hbs = require('express-handlebars')
 const path = require('path')
@@ -30,8 +29,8 @@ server.get('/', (req, res) => {
     .then((insideData) => {
       const obj = JSON.parse(insideData)
       res.render('home', obj)
+      return null
     })
-
     .catch((err) => {
       console.error('error', err)
     })
