@@ -1,7 +1,6 @@
 const express = require('express')
 const hbs = require('express-handlebars')
-const path = require('path')
-
+const router = require('./routes')
 const server = express()
 
 // // Server configuration
@@ -12,8 +11,10 @@ server.use(express.urlencoded({ extended: false }))
 server.engine('hbs', hbs({ extname: 'hbs' }))
 server.set('view engine', 'hbs')
 
+// // Routes config
+server.use('/', router)
+
 // //include fs module
-const fs = require('fs')
 const fsPromises = require('fs').promises
 
 // // Your routes/router(s) should go here
@@ -25,7 +26,7 @@ server.get('/', (req, res) => {
     .then((puppy) => {
       const puppyData = JSON.parse(puppy)
       res.render('home', puppyData)
-      return null
+      return req
     })
     .catch(err => {
       console.log(err)
